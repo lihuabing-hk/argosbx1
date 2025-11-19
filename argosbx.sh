@@ -1294,9 +1294,9 @@ argodomain=$(cat "$HOME/agsbx/sbargoym.log" 2>/dev/null)
 [ -z "$argodomain" ] && argodomain=$(grep -a trycloudflare.com "$HOME/agsbx/argo.log" 2>/dev/null | awk 'NR==2{print}' | awk -F// '{print $2}' | awk '{print $1}')
 if [ -n "$argodomain" ]; then
 pt1=$(cat $HOME/agsbx/argoport.log 2>/dev/null)
-pt2=$(grep -A2 vmess-xr $HOME/agsbx/xr.json | tail -1 | tr -cd 0-9 2>/dev/null)
-pt3=$(grep -A2 vmess-sb $HOME/agsbx/sb.json | tail -1 | tr -cd 0-9 2>/dev/null)
-pt4=$(grep -A2 vless-ws $HOME/agsbx/xr.json | tail -1 | tr -cd 0-9 2>/dev/null)
+pt2=$(grep -A2 vmess-xr $HOME/agsbx/xr.json 2>/dev/null | tail -1 | tr -cd 0-9)
+pt3=$(grep -A2 vmess-sb $HOME/agsbx/sb.json 2>/dev/null | tail -1 | tr -cd 0-9)
+pt4=$(grep -A2 vless-ws $HOME/agsbx/xr.json 2>/dev/null | tail -1 | tr -cd 0-9)
 if [ "$pt1" = "$pt2" ] || [ "$pt1" = "$pt3" ]; then
 vmatls_link1="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"${sxname}vmess-ws-tls-argo-$hostname-443\", \"add\": \"yg1.ygkkk.dpdns.org\", \"port\": \"443\", \"id\": \"$uuid\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$uuid-vm\", \"tls\": \"tls\", \"sni\": \"$argodomain\", \"alpn\": \"\", \"fp\": \"chrome\"}" | base64 -w0)"
 echo "$vmatls_link1" >> "$HOME/agsbx/jh.txt"
