@@ -39,6 +39,7 @@ export ARGO_AUTH=${agk:-''}
 export ippz=${ippz:-''}
 export warp=${warp:-''}
 export name=${name:-''}
+export oap=${oap:-''}
 v46url="https://icanhazip.com"
 agsbxurl="https://raw.githubusercontent.com/yonggekkk/argosbx/beta/argosbx.sh"
 showmode(){
@@ -1164,6 +1165,7 @@ case "$server_ip" in
 esac
 echo
 ym_vl_re=$(cat "$HOME/agsbx/ym_vl_re" 2>/dev/null)
+cfip=$(od -An -N2 -tu2 /dev/urandom | awk '{print $1 % 13 + 1}')
 if [ -e "$HOME/agsbx/xray" ]; then
 private_key_x=$(cat "$HOME/agsbx/xrk/private_key" 2>/dev/null)
 public_key_x=$(cat "$HOME/agsbx/xrk/public_key" 2>/dev/null)
@@ -1193,14 +1195,13 @@ echo "$vl_vx_link"
 echo
 if [ -f "$HOME/agsbx/cdnym" ]; then
 echo "💣【 Vless-xhttp-vision-cdn 】支持ENC加密，节点信息如下："
-echo "注：默认地址 yg1.ygkkk.dpdns.org 可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
-vl_vx_cdn_link="vless://$uuid@yg1.ygkkk.dpdns.org:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&host=$xvvmcdnym&path=$uuid-vx&mode=auto#${sxname}vl-xhttp-cdn-$hostname"
+echo "注：默认地址 yg数字.ygkkk.dpdns.org 可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
+vl_vx_cdn_link="vless://$uuid@yg$cfip.ygkkk.dpdns.org:$port_vx?encryption=$enkey&flow=xtls-rprx-vision&type=xhttp&host=$xvvmcdnym&path=$uuid-vx&mode=auto#${sxname}vl-xhttp-cdn-$hostname"
 echo "$vl_vx_cdn_link" >> "$HOME/agsbx/jh.txt"
 echo "$vl_vx_cdn_link"
 echo
 fi
 fi
-
 if grep vless-ws "$HOME/agsbx/xr.json" >/dev/null 2>&1; then
 echo "💣【 Vless-ws-vision 】支持ENC加密，节点信息如下："
 port_vw=$(cat "$HOME/agsbx/port_vw")
@@ -1210,14 +1211,13 @@ echo "$vl_vw_link"
 echo
 if [ -f "$HOME/agsbx/cdnym" ]; then
 echo "💣【 Vless-ws-vision-cdn 】支持ENC加密，节点信息如下："
-echo "注：默认地址 yg1.ygkkk.dpdns.org 可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
-vl_vw_cdn_link="vless://$uuid@yg1.ygkkk.dpdns.org:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$xvvmcdnym&path=$uuid-vw#${sxname}vl-ws-cdn-$hostname"
+echo "注：默认地址 yg数字.ygkkk.dpdns.org 可自行更换优选IP域名，如是回源端口需手动修改443或者80系端口"
+vl_vw_cdn_link="vless://$uuid@yg$cfip.ygkkk.dpdns.org:$port_vw?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$xvvmcdnym&path=$uuid-vw#${sxname}vl-ws-cdn-$hostname"
 echo "$vl_vw_cdn_link" >> "$HOME/agsbx/jh.txt"
 echo "$vl_vw_cdn_link"
 echo
 fi
 fi
-
 if grep reality-vision "$HOME/agsbx/xr.json" >/dev/null 2>&1; then
 echo "💣【 Vless-tcp-reality-v 】节点信息如下："
 port_vl_re=$(cat "$HOME/agsbx/port_vl_re")
@@ -1327,14 +1327,10 @@ echo "$vma_link12" >> "$HOME/agsbx/jh.txt"
 vma_link13="vmess://$(echo "{ \"v\": \"2\", \"ps\": \"${sxname}vmess-ws-argo-$hostname-2095\", \"add\": \"[2400:cb00:2049::0]\", \"port\": \"2095\", \"id\": \"$uuid\", \"aid\": \"0\", \"scy\": \"auto\", \"net\": \"ws\", \"type\": \"none\", \"host\": \"$argodomain\", \"path\": \"/$uuid-vm\", \"tls\": \"\"}" | base64 -w0)"
 echo "$vma_link13" >> "$HOME/agsbx/jh.txt"
 elif [ "$pt1" = "$pt4" ]; then
-vwatls_link1="vless://$uuid@yg1.ygkkk.dpdns.org:443?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=tls&sni=$argodomain&fp=chrome&insecure=0&allowInsecure=0#${sxname}vless-ws-tls-argo-enc-vision-$hostname"
+vwatls_link1="vless://$uuid@yg$cfip.ygkkk.dpdns.org:443?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=tls&sni=$argodomain&fp=chrome&insecure=0&allowInsecure=0#${sxname}vless-ws-tls-argo-enc-vision-$hostname"
 echo "$vwatls_link1" >> "$HOME/agsbx/jh.txt"
-vwatls_link2="vless://$uuid@[2606:4700::0]:8443?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=tls&sni=$argodomain&fp=chrome&insecure=0&allowInsecure=0#${sxname}vless-ws-tls-argo-enc-vision-$hostname"
+vwa_link2="vless://$uuid@yg$cfip.ygkkk.dpdns.org:80?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=none#${sxname}vless-ws-argo-enc-vision-$hostname"
 echo "$vwatls_link2" >> "$HOME/agsbx/jh.txt"
-vwatls_link3="vless://$uuid@yg6.ygkkk.dpdns.org:80?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=none#${sxname}vless-ws-argo-enc-vision-$hostname"
-echo "$vwatls_link3" >> "$HOME/agsbx/jh.txt"
-vwatls_link4="vless://$uuid@[2400:cb00:2049::0]:8080?encryption=$enkey&flow=xtls-rprx-vision&type=ws&host=$argodomain&path=$uuid-vw&security=none#${sxname}vless-ws-argo-enc-vision-$hostname"
-echo "$vwatls_link4" >> "$HOME/agsbx/jh.txt"
 fi
 sbtk=$(cat "$HOME/agsbx/sbargotoken.log" 2>/dev/null)
 if [ -n "$sbtk" ]; then
@@ -1349,7 +1345,7 @@ $nametn
 ${vmatls_link1}${vwatls_link1}
 
 2、💣80端口的vmess/vless-ws-argo节点(优选IP与80系端口随便换)
-${vma_link7}${vwatls_link3}
+${vma_link7}${vwa_link2}
 "
 )
 fi
@@ -1453,13 +1449,16 @@ fi
 v4orv6
 echo "VPS系统：$op"
 echo "CPU架构：$cpu"
-echo "Argosbx脚本未安装，开始安装…………" && sleep 2
+echo "Argosbx脚本未安装，开始安装…………" && sleep 1
+if [ -n "$oap" ]; then
 setenforce 0 >/dev/null 2>&1
 iptables -P INPUT ACCEPT >/dev/null 2>&1
 iptables -P FORWARD ACCEPT >/dev/null 2>&1
 iptables -P OUTPUT ACCEPT >/dev/null 2>&1
 iptables -F >/dev/null 2>&1
 netfilter-persistent save >/dev/null 2>&1
+echo "VPS服务器iptables已开放端口"
+fi
 ins
 cip
 echo
