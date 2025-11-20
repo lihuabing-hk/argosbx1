@@ -1009,7 +1009,9 @@ fi
 echo "${ARGO_DOMAIN}" > "$HOME/agsbx/sbargoym.log"
 echo "${ARGO_AUTH}" > "$HOME/agsbx/sbargotoken.log"
 else
-{ [ -n "$vmp" ] && argoport=$(cat "$HOME/agsbx/port_vm_ws") || argoport=$(cat "$HOME/agsbx/port_vw"); } && echo "$argoport" > "$HOME/agsbx/argoport.log"
+{ [ -n "$vmp" ] && argoport=$(cat "$HOME/agsbx/port_vm_ws" 2>/dev/null) || argoport=$(cat "$HOME/agsbx/port_vw" 2>/dev/null); } && echo "$argoport" > "$HOME/agsbx/argoport.log"
+
+2>/dev/null
 argoname='临时'
 nohup $HOME/agsbx/cloudflared tunnel --url http://localhost:$(cat $HOME/agsbx/argoport.log) --edge-ip-version auto --no-autoupdate --protocol http2 > $HOME/agsbx/argo.log 2>&1 &
 fi
@@ -1339,7 +1341,7 @@ if [ -n "$sbtk" ]; then
 nametn="当前Argo固定隧道token：$sbtk"
 fi
 argoshow=$(
-echo "Vmess/Vless-ws主协议端口(Argo隧道端口)：$port_vm_ws
+echo "Vmess/Vless-ws主协议端口(Argo隧道端口)：$pt1
 当前Argo域名：$argodomain
 $nametn
 
