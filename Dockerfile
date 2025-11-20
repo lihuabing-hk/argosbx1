@@ -34,4 +34,4 @@ RUN chmod +x container/nodejs/start.sh
 EXPOSE 8080
 
 # 启动入口
-CMD ["sh", "-c", "PORT=${PORT:-8080} container/nodejs/start.sh"]
+CMD ["sh", "-c", "container/nodejs/start.sh"]
