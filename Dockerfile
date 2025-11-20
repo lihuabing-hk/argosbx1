@@ -1,4 +1,3 @@
-# 使用 Node 20 兼容新依赖
 FROM node:20-bullseye
 
 ENV NODE_ENV=production
@@ -8,7 +7,7 @@ ENV DOMAIN=replace-with-your-domain
 
 WORKDIR /app
 
-# 安装原生模块编译依赖和常用工具
+# 安装原生模块编译依赖和 canvas/sharp 所需库
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     python3 \
@@ -26,11 +25,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 拷贝 package 文件
 COPY package*.json ./
 
-# 安装依赖
+# npm 镜像 + 安装依赖
 RUN npm config set registry https://registry.npmmirror.com/ \
     && npm install --only=production --unsafe-perm
 
-# 拷贝项目文件
+# 拷贝整个项目
 COPY . .
 
 # 确保启动脚本可执行
