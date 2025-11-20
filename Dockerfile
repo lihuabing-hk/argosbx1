@@ -27,11 +27,11 @@ RUN npm config set registry https://registry.npmmirror.com/ \
 # 拷贝整个项目
 COPY . .
 
-# 确保启动脚本可执行（如果有）
-RUN chmod +x whm.sh || true
+# 确保启动脚本可执行
+RUN chmod +x container/nodejs/start.sh
 
 # 暴露端口
 EXPOSE 8080
 
-# 启动入口文件
-CMD ["sh", "-c", "PORT=${PORT:-8080} node container/nodejs/index.js"]
+# 启动入口
+CMD ["sh", "-c", "PORT=${PORT:-8080} container/nodejs/start.sh"]
