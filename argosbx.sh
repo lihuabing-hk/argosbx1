@@ -1457,7 +1457,8 @@ iptables -P FORWARD ACCEPT >/dev/null 2>&1
 iptables -P OUTPUT ACCEPT >/dev/null 2>&1
 iptables -F >/dev/null 2>&1
 netfilter-persistent save >/dev/null 2>&1
-echo "VPS服务器iptables已开放端口"
+echo
+echo "iptables执行开放所有端口"
 fi
 ins
 cip
