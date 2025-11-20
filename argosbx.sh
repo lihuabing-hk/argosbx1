@@ -1009,7 +1009,7 @@ fi
 echo "${ARGO_DOMAIN}" > "$HOME/agsbx/sbargoym.log"
 echo "${ARGO_AUTH}" > "$HOME/agsbx/sbargotoken.log"
 else
-{ [ -n "$vmp" ] && argoport=$port_vm_ws || argoport=$port_vw; } && echo "$argoport" > "$HOME/agsbx/argoport.log"
+{ [ -n "$vmp" ] && argoport=$(cat "$HOME/agsbx/port_vm_ws") || argoport=$(cat "$HOME/agsbx/port_vw"); } && echo "$argoport" > "$HOME/agsbx/argoport.log"
 argoname='临时'
 nohup $HOME/agsbx/cloudflared tunnel --url http://localhost:$(cat $HOME/agsbx/argoport.log) --edge-ip-version auto --no-autoupdate --protocol http2 > $HOME/agsbx/argo.log 2>&1 &
 fi
