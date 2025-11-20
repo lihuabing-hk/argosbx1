@@ -13,9 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates git \
  && rm -rf /var/lib/apt/lists/*
 
-# 拷贝 package.json
+# 拷贝 package.json 安装依赖
 COPY container/nodejs/package*.json ./
-
 RUN npm config set registry https://registry.npmmirror.com/ \
     && npm install --only=production --unsafe-perm
 
@@ -27,5 +26,5 @@ RUN chmod +x container/nodejs/start.sh
 
 EXPOSE 8080
 
-# 使用绝对路径启动
+# 使用绝对路径启动脚本
 CMD ["sh", "-c", "PORT=${PORT:-8080} container/nodejs/start.sh"]
