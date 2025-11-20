@@ -19,6 +19,7 @@ export agk=${agk}
 export ippz=${ippz}
 export warp=${warp}
 export name=${name}
+node container/nodejs/index.js
 v46url="https://icanhazip.com"
 showmode(){
 echo "Argosbx脚本项目地址：https://github.com/yonggekkk/argosbx"
